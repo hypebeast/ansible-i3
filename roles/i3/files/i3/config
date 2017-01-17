@@ -168,8 +168,8 @@ bindsym $mod+r mode "resize"
 #        font pango: Monospace 10
 #}
 
-bindsym $mod+End exec  ~/.i3/quickswitch.py -e
-bindsym $mod+Home exec  ~/.i3/quickswitch.py --dmenu="dmenu -b -i -l 20 -nb '#000000' -nf '#CFCFCF' -sb '#D53C0A'  -sf '#FFFFFF' -fn 'Droid Sans:pixelsize=13'"
+bindsym $mod+End exec quickswitch.py -e
+bindsym $mod+Home exec quickswitch.py --dmenu="dmenu -b -i -l 20 -nb '#000000' -nf '#CFCFCF' -sb '#D53C0A'  -sf '#FFFFFF' -fn 'Droid Sans:pixelsize=13'"
 
 client.focused          #bc3220 #bc3220 #EEEEEE #2D2D2D
 client.focused_inactive #999999 #999999 #EEEEEE #2D2D2D
