@@ -1,0 +1,53 @@
+---
+# Uninstall all theme releated packages and configs
+
+- name: Removed apt repositories
+  apt_repository: repo='{{item}}' state=absent update_cache=yes
+  with_items:
+    - ppa:numix/ppa
+
+- name: Uninstall packages
+  apt: pkg={{item}} force=yes state=absent
+  with_items:
+   - lightdm-gtk-greeter
+   - fonts-roboto
+   - fonts-powerline
+   - numix-gtk-theme
+   - numix-icon-theme-circle
+   - compton
+   - feh
+   - conky
+   - curl
+   - jq
+   - xfce4-terminal
+
+- name: Remove autostart entries
+  file: src={{item}} dest=/home/{{remote_user}}/.config/autostart/ state=absent
+  with_fileglob:
+   - autostart/*
+
+- name: Remove conky config
+  file: path=/home/{{remote_user}}/.conky state=absent
+
+- name: Remove compton config
+  file: path=/home/{{remote_user}}/.compton.conf state=absent
+
+- name: Restore lightdm theme
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^theme-name.*" line="theme-name=Greybird" state=present
+
+- name: Restore lightdm icon theme
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^icon-theme-name.*" line="icon-theme-name=elementary-xfce-dark"  state=present
+
+- name: Remove lightdm background
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^background.*" state=absent
+
+- name: Remove lightdm user background
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^user-background.*" state=absent
+
+- name: Remove fonts
+  file: path=/home/{{remote_user}}/.fonts/{{ item }} state=absent
+  with_fileglob:
+    - fonts/*
+
+- name: Remove background
+  file: path=/usr/share/backgrounds/girl_face_explosion.jpg owner={{remote_user}} group={{remote_user}} mode='u=rw'

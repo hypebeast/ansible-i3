@@ -1,0 +1,73 @@
+---
+# Install and setup the i3 and lightdm theme.
+
+- name: Ensure required apt repositories
+  apt_repository: repo='{{item}}' state=present update_cache=yes
+  with_items:
+    - ppa:numix/ppa
+
+- name: Ensure packages
+  apt: pkg={{item}} update_cache=true force=yes state=installed
+  with_items:
+   - lightdm-gtk-greeter
+   - fonts-roboto
+   - fonts-powerline
+   - numix-gtk-theme
+   - numix-icon-theme-circle
+   - compton
+   - feh
+   - conky
+   - curl
+   - jq
+   - xfce4-terminal
+
+- name: Ensure autostart
+  copy: src={{item}} dest=/home/{{remote_user}}/.config/autostart/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
+  with_fileglob:
+   - autostart/*
+
+- name: Ensure conky config directory
+  file: path=/home/{{remote_user}}/.conky state=directory
+
+- name: Ensure conky config
+  copy: src={{item}} dest=/home/{{remote_user}}/.conky/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
+  with_fileglob:
+   - conky/*
+
+- name: Set permissions
+  file: path=/home/{{remote_user}}/.conky recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'
+
+- name: Ensure compton config
+  copy: src=compton/compton.conf dest=/home/{{remote_user}}/.compton.conf owner={{remote_user}} group={{remote_user}} mode='u=rw'
+
+- name: Set lightdm greeter
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf line='[greeter]'
+
+- name: Set lightdm theme
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^theme-name.*" line='theme-name=Numix' insertafter="[greeter]"  state=present
+
+- name: Set lightdm icon theme
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^icon-theme-name.*" line='icon-theme-name=Numix-Circle' insertafter="[greeter]" state=present
+
+- name: Set lightdm background
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^background.*" line='background=/usr/share/backgrounds/girl_face_explosion.jpg' insertafter="[greeter]" state=present
+
+- name: Disable lightdm user background
+  lineinfile: dest=/etc/lightdm/lightdm-gtk-greeter.conf regexp="^user-background.*" line='user-background = false' insertafter="[greeter]" state=present
+
+- name: Ensure fonts
+  copy: src={{item}} dest=/home/{{remote_user}}/.fonts/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
+  with_fileglob:
+    - fonts/*
+
+- name: Set permissions for fonts
+  file: path=/home/{{remote_user}}/.fonts recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'
+
+- name: Set permissions for config
+  file: path=/home/{{remote_user}}/.config recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'
+
+- name: Ensure background image
+  copy: src=wallpapers/girl_face_explosion.jpg dest=/usr/share/backgrounds/girl_face_explosion.jpg  owner=root  group=root mode='a=r'
+
+- name: Set permissions
+  file: path=/usr/share/backgrounds/girl_face_explosion.jpg owner={{remote_user}} group={{remote_user}} mode='u=rw'

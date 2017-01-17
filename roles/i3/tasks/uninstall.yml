@@ -1,0 +1,16 @@
+---
+# Uninstall i3-wm
+
+
+- name: Ensure packages are uninstalled
+  apt: pkg={{item}} force=yes state=absent
+  with_items:
+   - i3-wm
+
+- name: Remove autostart entries
+  file: src={{item}} dest=/home/{{remote_user}}/.config/autostart/ state=absent
+  with_fileglob:
+    - autostart/*
+
+- name: Remove i3 config
+  file: path=/home/{{remote_user}}/.i3 state=absent

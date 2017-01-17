@@ -1,0 +1,51 @@
+---
+# Install additional utilities and extensions for i3.
+
+- name: Ensure additional apt repositories
+  apt_repository: repo='{{item}}' state=present update_cache=true
+  with_items:
+    - ppa:aacebedo/libi3ipc-glib
+    - ppa:aacebedo/fasd
+    - ppa:nilarimogard/webupd8
+
+- name: Ensure packages
+  apt: pkg={{item}} update_cache=true force=yes state=installed
+  with_items:
+    - aptitude
+    - libqt5libqgtk2
+    - libqt5svg5
+    - python-dev
+    - wget
+    - curl
+    - cmake
+    - build-essential
+    - python-pip
+    - dmenu
+    - feh
+    - git
+    - python-software-properties
+    - dtrx
+    - libi3ipc-glib
+    - i3status
+    - i3blocks
+    - fasd
+
+- name: Get j4-dmenu-desktop
+  get_url: url=https://github.com/enkore/j4-dmenu-desktop/archive/r2.14.tar.gz dest=/tmp/j4-desktop-menu.tar.gz
+
+- name: Unpack j4-dmenu-desktop
+  shell: tar xvzf j4-desktop-menu.tar.gz chdir=/tmp
+
+- name: Compile and install j4-dmenu-desktop
+  shell: cmake ./ && make install chdir=/tmp/j4-dmenu-desktop-r2.14
+
+- name: Ensure required Python libraries
+  pip: name={{item}} state=present
+  with_items:
+    - pathlib
+    - psutil
+    - thefuck
+    - i3-py
+    - quickswitch-i3
+    - py3status
+    - cheat

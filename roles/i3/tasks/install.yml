@@ -1,0 +1,23 @@
+---
+# Install i3-wm
+
+- name: Ensure i3 is installed
+  apt: pkg={{item}} update_cache=true force=yes state=installed
+  with_items:
+    - i3-wm
+
+- name: Ensure autostart files
+  copy: src={{item}} dest=/home/{{remote_user}}/.config/autostart/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
+  with_fileglob:
+    - autostart/*
+
+- name: Ensure i3 config directory
+  file: path=/home/{{remote_user}}/.i3 state=directory
+
+- name: Ensure i3 config
+  copy: src={{item}} dest=/home/{{remote_user}}/.i3/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
+  with_fileglob:
+   - i3/*
+
+- name: Set permissions for i3 config directory
+  file: path=/home/{{remote_user}}/.i3 recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'

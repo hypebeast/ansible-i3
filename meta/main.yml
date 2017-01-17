@@ -1,0 +1,35 @@
+---
+
+allow_duplicates: no
+
+
+galaxy_info:
+  author: Sebastian Ruml
+  description: Ansible role to install i3
+  license: 3-clause BSD license.
+  min_ansible_version: 1.6
+  platforms:
+    - name: Ubuntu
+      versions:
+        14.04
+        16.04
+        16.10
+  categories:
+    #- cloud
+    #- cloud:ec2
+    #- cloud:gce
+    #- cloud:rax
+    #- clustering
+    #- database
+    #- database:nosql
+    #- database:sql
+    #- development
+    #- monitoring
+    #- networking
+    #- packaging
+    #- system
+    #- web
+
+
+
+dependencies:

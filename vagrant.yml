@@ -1,0 +1,11 @@
+---
+  - name: Install i3
+    hosts: all
+    become: yes
+    vars:
+      remote_user: vagrant
+      action: install
+    roles:
+      - i3
+      - themes
+      - utilities
