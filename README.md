@@ -7,9 +7,9 @@ Ansible role to install and configure i3 on Ubuntu.
 
 This Ansible role installs the following components:
 
-  * [i3](https://i3wm.org/) is a tiling window manager.
+  * [i3](https://i3wm.org/) the tiling window manager with a custom config.
   * [j4-dmenu-desktop](https://github.com/enkore/j4-dmenu-desktop) a fast desktop menu
-  * [quickswitch-i3](quickswitch-i3) a python utility to quickly change to and locate windows in i3.
+  * [quickswitch-i3](https://github.com/proxypoke/quickswitch-for-i3) a python utility to quickly change to and locate windows in i3.
   * [compton](https://github.com/chjj/compton) a compositor for X11.
   * [conky](https://github.com/brndnmtthws/conky) a Light-weight system monitor for X with custom theme.
   * _lightdm_ with custom theme.
