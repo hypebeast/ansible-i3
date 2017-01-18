@@ -9,6 +9,10 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# Alt key is the alt key
+set $alt Mod1
+
+# Windows key is the mod key
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -23,7 +27,11 @@ font pango:Ubuntu Medium 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-workspace_layout tabbed
+
+# Set layout to default mode for new containers
+workspace_layout default
+#workspace_layout tabbed
+
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal #i3-sensible-terminal
 
@@ -38,7 +46,18 @@ bindsym $mod+q kill
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 #bindsym $mod+space exec --no-startup-id j4-dmenu-desktop [--dmenu="dmenu -i"] [--term="gnome-terminal"]
 
+# start j4-dmenu-desktop
 bindsym $mod+space exec --no-startup-id j4-dmenu-desktop  j4-dmenu-desktop --dmenu="dmenu -b -i -nb '#000000' -nf '#CFCFCF' -sb '#D53C0A' -sf '#FFFFFF' -fn 'Droid Sans:pixelsize=13'" --term="gnome-terminal"
+
+# start customized rofi for launching any program
+set $execute exec rofi -show run -eh 2 -padding 400 -fullscreen
+bindsym $mod+d $execute
+bindsym XF86Search $execute
+
+# reload/restart/exit
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 # change focus
 bindsym $mod+j focus left
@@ -76,62 +95,73 @@ bindsym $mod+f fullscreen
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+e layout toggle split
+bindsym $mod+e layout default
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym mod+space focus mode_toggle
+bindsym $alt+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+y focus child
+
+# cycling through windows on one workspace
+bindsym $alt+Tab focus right
+bindsym $alt+Shift+Tab focus left
 
 # switch to workspace
-bindsym $mod+ampersand workspace 1
-bindsym $mod+eacute workspace 2
-bindsym $mod+quotedbl workspace 3
-bindsym $mod+apostrophe workspace 4
-bindsym $mod+parenleft workspace 5
-bindsym $mod+minus workspace 6
-bindsym $mod+egrave workspace 7
-bindsym $mod+underscore workspace 8
-bindsym $mod+ccedilla workspace 9
-bindsym $mod+agrave workspace 10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
 bindsym $mod+Page_Down workspace prev
 bindsym $mod+Page_Up workspace next
+bindsym $mod+Tab workspace back_and_forth
 
 # move focused container to workspace
-bindsym $mod+Shift+ampersand move container to workspace 1
-bindsym $mod+Shift+eacute move container to workspace 2
-bindsym $mod+Shift+quotedbl move container to workspace 3
-bindsym $mod+Shift+apostrophe move container to workspace 4
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+minus move container to workspace 6
-bindsym $mod+Shift+egrave move container to workspace 7
-bindsym $mod+Shift+underscore move container to workspace 8
-bindsym $mod+Shift+ccedilla move container to workspace 9
-bindsym $mod+Shift+agrave move container to workspace 10
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+10 move container to workspace 10
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-#bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec "i3-msg exit"
+# workspace screens
+#workspace 1 output HDMI1
+#workspace 2 output HDMI1
+#workspace 3 output HDMI1
+#workspace 4 output HDMI1
+#workspace 5 output LVDS1
+#workspace 6 output LVDS1
+#workspace 7 output LVDS1
+#workspace 8 output LVDS1
+
+# border changing
+bindsym $mod+b border toggle
+
+# scratchpad
+bindsym $mod+i move scratchpad
+bindsym $mod+o scratchpad show
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window���s width.
-        # Pressing right will grow the window���s width.
-        # Pressing up will shrink the window���s height.
-        # Pressing down will grow the window���s height.
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
@@ -148,26 +178,54 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+# enter resize mode
 bindsym $mod+r mode "resize"
+
+# pulse audio volume control
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 -- '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 -- '+5%'
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-volume 0 0
+bindsym XF86Launch1 exec /usr/bin/pactl play-sample that_was_easy
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-#        status_command $HOME/.i3/i3bar-conky
-#       tray_output primary
-#        colors{
-#                background #232323
-#                statusline #DCDCDC
-#
-#                focused_workspace  #2D2D2D #232323 #ffffff
-#                active_workspace   #DDDDDD #999999 #ffffff
-#                inactive_workspace #DDDDDD #999999 #CCCCCC
-#                urgent_workspace   #DDDDDD #555555 #ffffff
-#        }
-#        position top
-#        font pango: Monospace 10
-#}
+bar {
+  status_command i3status
+  tray_output primary
 
+  colors{
+    background #232323
+    statusline #DCDCDC
+
+    focused_workspace  #2D2D2D #232323 #ffffff
+    active_workspace   #DDDDDD #999999 #ffffff
+    inactive_workspace #DDDDDD #999999 #CCCCCC
+    urgent_workspace   #DDDDDD #555555 #ffffff
+  }
+
+  position top
+  font pango: Monospace 10
+}
+
+# workspace assignment (use "xprop")
+#assign [class="^Google-chrome$"] 3
+#assign [class="^URxvt$" instance="^mail$"] 4
+#assign [class="^Xchat$"] 5
+#assign [class="^Rednotebook$"] 6
+#assign [class="^Decibel-audio-player.py$"] 7
+#assign [title="Lingea Lexicon 5$"] 8
+
+# custom window settings
+#for_window [class="^URxvt$" instance="scratchpad"] border 1pixel; move scratchpad
+#for_window [class="^Google-chrome$"] border none
+#for_window [title="Lingea Lexicon 5$"] border none
+
+# get elluminate working
+#for_window [title="^Elluminate Live!"] floating enable
+#for_window [title="^Application Sharing"] floating enable
+#for_window [class="^net-sourceforge-jnlp-runtime-Boot$" title="^Downloading"] floating enable
+
+# quickswitch.py
 bindsym $mod+End exec quickswitch.py -e
 bindsym $mod+Home exec quickswitch.py --dmenu="dmenu -b -i -l 20 -nb '#000000' -nf '#CFCFCF' -sb '#D53C0A'  -sf '#FFFFFF' -fn 'Droid Sans:pixelsize=13'"
 
@@ -176,6 +234,7 @@ client.focused_inactive #999999 #999999 #EEEEEE #2D2D2D
 client.unfocused        #999999 #999999 #EEEEEE #2D2D2D
 client.urgent           #555555 #555555 #FFFFFF #2D2D2D
 
+# autostart
 exec --no-startup-id feh --bg-fill /usr/share/backgrounds/girl_face_explosion.jpg
 exec --no-startup-id conky -c ~/.conky/conkyrc_right
 exec --no-startup-id conky -c ~/.conky/conkyrc_left

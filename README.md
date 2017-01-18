@@ -39,8 +39,7 @@ vagrant up
   * [rofi](https://davedavenport.github.io/rofi/): A window switcher, run dialog and dmenu replacement
   * [j4-make-config](https://github.com/okraits/j4-make-config)
   * Status line for i3
-    * [j4status](https://j4status.j4tools.org/) and [j4status-plugins](https://j4status.j4tools.org/j4status-plugins/)
-    * or [i3blocks](https://github.com/vivien/i3blocks)
+    * [j4status](https://j4status.j4tools.org/) and [j4status-plugins](https://j4status.j4tools.org/j4status-plugins/) and [i3blocks](https://github.com/vivien/i3blocks)
     * or [i3pystatus](https://github.com/enkore/i3pystatus)
     * or [py3status](https://github.com/ultrabug/py3status)
   * [dunst](http://www.knopwob.org/dunst/): lightweight and customizable notification daemon
