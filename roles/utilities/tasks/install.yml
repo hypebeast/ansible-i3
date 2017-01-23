@@ -31,6 +31,7 @@
     - i3blocks
     - fasd
     - rofi
+    - dunst
 
 - name: Get j4-dmenu-desktop
   get_url: url=https://github.com/enkore/j4-dmenu-desktop/archive/r2.14.tar.gz dest=/tmp/j4-desktop-menu.tar.gz
@@ -62,3 +63,14 @@
 
 - name: Set permissions for i3status config directory
   file: path=/home/{{remote_user}}/.config/i3status recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'
+
+- name: Ensure dunst config directory
+  file: path=/home/{{remote_user}}/.config/dunst state=directory
+
+- name: Ensure dunst config
+  copy: src={{item}} dest=/home/{{remote_user}}/.config/dunst/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
+  with_fileglob:
+   - dunst/*
+
+- name: Set permissions for dunst config directory
+  file: path=/home/{{remote_user}}/.config/dunst recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'

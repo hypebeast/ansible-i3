@@ -2,7 +2,6 @@
 
 allow_duplicates: no
 
-
 galaxy_info:
   author: Sebastian Ruml
   description: Ansible role to install i3
