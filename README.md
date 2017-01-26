@@ -1,6 +1,8 @@
 # ansible-i3
 
-Ansible role to install and configure i3 on Ubuntu.
+Ansible playbook to install and configure i3 on Ubuntu.
+
+This playbook installs i3 and some additional tools to provide a complete i3 environment.
 
 
 ## Features
@@ -20,17 +22,19 @@ This Ansible role installs the following components:
 
 ## Usage
 
-To install use:
+First, copy `vars/vars.yml.example` to `vars/vars.yml` and add your username and your password.
+
+
+Then you can start the playbook:
 
 ```
 ansible-playbook playbook.yml -i hosts -e action=install
-
 ```
 
 
 ## Vagrant
 
-To test the installation run:
+To Ansible playbook can be tested with Vagrant:
 
 ```
 vagrant up

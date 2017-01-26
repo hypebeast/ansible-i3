@@ -2,7 +2,7 @@
   - name: Install i3
     hosts: all
     become: yes
-    vars:
+    vars_files:
       - vars/defaults.yml
       - vars/vars.yml
     roles:
