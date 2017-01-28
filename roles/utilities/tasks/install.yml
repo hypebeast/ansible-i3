@@ -32,6 +32,9 @@
     - fasd
     - rofi
     - dunst
+    - lxappearance
+    - gtk-chtheme
+    - qt4-qtconfig
 
 - name: Get j4-dmenu-desktop
   get_url: url=https://github.com/enkore/j4-dmenu-desktop/archive/r2.14.tar.gz dest=/tmp/j4-desktop-menu.tar.gz

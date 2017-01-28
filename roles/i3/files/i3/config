@@ -151,6 +151,19 @@ bindsym $mod+Shift+10 move container to workspace 10
 #workspace 7 output LVDS1
 #workspace 8 output LVDS1
 
+# define names for workspaces with some nice symbols
+set $w0 0✪
+set $w1 1❶ 
+set $w2 2❷ 
+set $w3 3❸ 
+set $w4 4❹ 
+set $w5 5❺ 
+set $w6 6❻ 
+set $w7 7❼ ☘
+set $w8 8❽ 
+set $w9 9❾ 
+set $w10 10❿
+
 # border changing
 bindsym $mod+b border toggle
 
@@ -238,3 +251,6 @@ client.urgent           #555555 #555555 #FFFFFF #2D2D2D
 exec --no-startup-id feh --bg-fill /usr/share/backgrounds/girl_face_explosion.jpg
 exec --no-startup-id conky -c ~/.conky/conkyrc_right
 exec --no-startup-id conky -c ~/.conky/conkyrc_left
+
+# Start the session
+#exec --no-startup-id ~/.i3/autostart

@@ -3,6 +3,7 @@ general {
   interval = 4
 }
 
+order += "cpu_usage 0"
 order += "disk /home"
 order += "disk /"
 order += "run_watch VPN"
@@ -27,6 +28,10 @@ time {
 
 load {
   format = "%1min"
+}
+
+cpu_usage {
+  format = " %usage"
 }
 
 disk "/" {
