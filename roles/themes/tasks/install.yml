@@ -29,10 +29,21 @@
 - name: Ensure conky config directory
   file: path=/home/{{remote_user}}/.conky state=directory
 
-- name: Ensure conky config
-  copy: src={{item}} dest=/home/{{remote_user}}/.conky/ owner={{remote_user}} group={{remote_user}} mode='u=rw'
-  with_fileglob:
-   - conky/*
+- name: Ensure conky left config from template
+  template:
+    src: 'conkyrc_left'
+    dest: '/home/{{ remote_user }}/.conky/'
+    owner: '{{ remote_user }}'
+    group: '{{ remote_user }}'
+    mode: 'u=rw'
+
+- name: Ensure conky right config from template
+  template:
+    src: 'conkyrc_right'
+    dest: '/home/{{ remote_user }}/.conky/'
+    owner: '{{ remote_user }}'
+    group: '{{ remote_user }}'
+    mode: 'u=rw'
 
 - name: Set permissions
   file: path=/home/{{remote_user}}/.conky recurse='yes' owner={{remote_user}} group={{remote_user}} mode='u=rwX'
