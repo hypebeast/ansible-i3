@@ -32,22 +32,22 @@ draw_graph_borders yes
 
 TEXT
 
-${font Droid Sans:size=20}${color #D71700}${nodename}${color Ivory}          Ubuntu ${font openlogos:size=20}u
+${font Droid Sans:size=20}${color #D71700}${nodename}${color Ivory}          {{ ansible_distribution }} ${font openlogos:size=20}u
 
 ${voffset -120}
 ${color white}
 ${font}
 ${font Droid Sans:bold:size=10}${color #D71700}SYSTEM ${color #CCCCCC} ${hr 2}
 $font${color white}$sysname $kernel $alignr $machine
-Intel Pentium D $alignr${freq_g cpu0}Ghz
+CPU $alignr${freq_g cpu0}Ghz
 Uptime $alignr${uptime}
 File System $alignr${fs_type}
 
 ${font Droid Sans:bold:size=10}${color #D71700}PROCESSORS ${color #CCCCCC}${hr 2}
-$font${color white}CPU1  ${cpu cpu1}% ${cpubar cpu1}
-#CPU2  ${cpu cpu2}% ${cpubar cpu2}
-#CPU3  ${cpu cpu3}% ${cpubar cpu3}
-#CPU4  ${cpu cpu4}% ${cpubar cpu4}
+{% for core in range(ansible_processor_cores) %}
+  $font${color white}CPU{{ core }}  ${cpu cpu{{ core }} }% ${cpubar cpu{{ core }} }
+{% endfor %}
+
 ${font Droid Sans:bold:size=10}${color #D71700}CPU USAGE ${color #CCCCCC}${hr 2}
 ${color white}${cpugraph 32,350 FFFFFF FFFFFF}
 

@@ -36,13 +36,13 @@ draw_graph_borders yes
 TEXT
 
 ${font Droid Sans:bold:size=10}${color #D71700}NETWORK STATS${color #CCCCCC}${hr 2}
-${font Droid Sans:bold:size=10}${color #FFFFFF}IP on wlp4s0: $alignr${color white}$font${addr wlp4s0}
-${font Droid Sans:bold:size=10}${color #FFFFFF}Down: $alignr${color white}$font${downspeed wlp4s0} kb/s
-${font Droid Sans:bold:size=10}${color #FFFFFF}Up: $alignr${color white}$font${upspeed wlp4s0} kb/s
-${font Droid Sans:bold:size=10}${color #FFFFFF}Downloaded: $alignr${color white}$font${totaldown wlp4s0}
-${font Droid Sans:bold:size=10}${color #FFFFFF}Uploaded: $alignr${color white}$font${totalup wlp4s0}
+${font Droid Sans:bold:size=10}${color #FFFFFF}IP on {{ ansible_default_ipv4.interface }}: $alignr${color white}$font${addr {{ ansible_default_ipv4.interface }}}
+${font Droid Sans:bold:size=10}${color #FFFFFF}Down: $alignr${color white}$font${downspeed {{ ansible_default_ipv4.interface }}} kb/s
+${font Droid Sans:bold:size=10}${color #FFFFFF}Up: $alignr${color white}$font${upspeed {{ ansible_default_ipv4.interface }}} kb/s
+${font Droid Sans:bold:size=10}${color #FFFFFF}Downloaded: $alignr${color white}$font${totaldown {{ ansible_default_ipv4.interface }}}
+${font Droid Sans:bold:size=10}${color #FFFFFF}Uploaded: $alignr${color white}$font${totalup {{ ansible_default_ipv4.interface }}}
 ${font Droid Sans:bold:size=10}${color #FFFFFF}Download graph:                     Upload graph:
-${color white}${downspeedgraph wlp4s0 32,155 FFFFFF FFFFFF} $alignr${upspeedgraph wlp4s0 32,155 FFFFFF FFFFFF}
+${color white}${downspeedgraph wlp4s0 32,155 FFFFFF FFFFFF} $alignr${upspeedgraph {{ ansible_default_ipv4.interface }} 32,155 FFFFFF FFFFFF}
 
 ${font Droid Sans:bold:size=10}${color #D71700}PORTS AND CONNECTIONS ${color #CCCCCC}${hr 2}
 ${color #FFFFFF}Port(s)        ${alignr}     #Connections
